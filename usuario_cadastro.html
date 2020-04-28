@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Unasp Face!</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <script src="js/jquery-3.4.1.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/tooltip.min.js"></script>
+        <script src="js/bootstrap.js"></script>
+	</head>
+	<body>		
+        <div class="container mt-3">
+			<form class="text-center border border-light p-5" action="controller/usuario_controller_cadastro.php" method="POST" target="_self">
+				<p class="h4 mb-4">Cadastro de Usuário</p>
+
+				<input type="text" name="username" required placeholder="Nome de usuário" class="form-control mb-4">
+				<input type="password" name="password" required placeholder="Senha" class="form-control mb-4">
+				<input type="text" name="name" required placeholder="Nome completo" class="form-control mb-4">
+				<input type="text" name="address" placeholder="Endereço" class="form-control mb-4">
+				<input type="email" name="email" placeholder="E-mail" class="form-control mb-4">
+				<input type="text" name="phone" placeholder="Telefone" class="form-control mb-4">
+
+				<button class="btn btn-info btn-block my-4" type="submit">Cadastrar</button>
+
+				<p><a href="index.html">Cancelar</a></p>
+			</form>
+		</div>
+	</body>
+</html>
