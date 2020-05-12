@@ -29,3 +29,15 @@ CREATE TABLE publicacao
 	userid INT NOT NULL,
 	FOREIGN KEY (userid) REFERENCES usuario(id) ON DELETE CASCADE
 );
+
+CREATE TABLE amizade
+(
+	idUsuario INT NOT NULL,
+	idAmigo INT NOT NULL,
+	dataSolicitacao DATE NOT NULL,
+	dataConfirmacao DATE,
+	situacao CHAR(2) NOT NULL,
+	PRIMARY KEY (idUsuario, idAmigo)
+	FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE
+	FOREIGN KEY (idAmigo) REFERENCES usuario(id) ON DELETE CASCADE
+);
