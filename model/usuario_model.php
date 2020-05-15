@@ -1,7 +1,7 @@
 <?php
     class Usuario
     {
-        static function Cadastro($username, $name, $passwordHash, $saltHash, $phone, $email, $address)
+        public static function CadastrarUsuario($username, $name, $passwordHash, $saltHash, $phone, $email, $address)
         {     
             $objDb = new db();
             $link = $objDb->mysqlConnect();
@@ -24,5 +24,6 @@
             else
                 return "Falha ao cadastrar usuário: ".mysqli_error($link);
         }
+
     }
 ?>

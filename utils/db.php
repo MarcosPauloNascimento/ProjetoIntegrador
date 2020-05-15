@@ -11,7 +11,7 @@
             $con = mysqli_connect($this->host, $this->username, $this->password, $this->database);
             mysqli_set_charset($con, 'utf8');
 
-            if(mysqli_connect_errno())
+            if(mysqli_connect_error())
             {
                 echo 'Erro ao tentar se conectar com o DB MySQL: '.mysqli_connect_error();
             }

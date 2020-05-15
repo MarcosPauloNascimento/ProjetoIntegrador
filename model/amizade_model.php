@@ -1,13 +1,26 @@
+
+idUsuario INT NOT NULL,
+    idAmigo INT NOT NULL,
+    dataSolicitacao DATE NOT NULL,
+    dataConfirmacao DATE,
+    situacao CHAR(2) NOT NULL, -- (P - Pendente, A - Aprovado, R - Rejeitado)
+    PRIMARY KEY (idUsuario, idAmigo),
+    FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (idAmigo) REFERENCES usuario(id) ON DELETE CASCADE
+
 <?php
-    class Publicacao
+    class Amizade
     {
-        public static function CadastrarPublicacao($datapublicacao, $conteudo, $userid)
+
+        public static function 
+
+        public static function SolicitarAmizade($username, $name, $passwordHash, $saltHash, $phone, $email, $address)
         {     
             $objDb = new db();
             $link = $objDb->mysqlConnect();
     
-            $stmt = $link->prepare("INSERT INTO publicacao(datapublicacao, conteudo, userid) VALUES (?, ?, ?);");
-            $stmt->bind_param("sss", $datapublicacao, $conteudo, $userid);
+            $stmt = $link->prepare("INSERT INTO usuario(username, name, passwordhash, salthash) VALUES (?, ?, ?, ?);");
+            $stmt->bind_param("ssss", $username, $name, $passwordHash, $saltHash);
             $runquery = $stmt->execute();
     
             if($runquery)
@@ -25,6 +38,5 @@
                 return "Falha ao cadastrar usuário: ".mysqli_error($link);
         }
 
-        public static function 
     }
 ?>

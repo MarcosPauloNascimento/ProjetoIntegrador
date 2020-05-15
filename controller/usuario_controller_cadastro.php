@@ -14,6 +14,6 @@
     $saltHash = md5($saltStr);
     $passwordHash = md5($password . $saltHash);
 
-    $resposta = Usuario::Cadastro($username, $name, $passwordHash, $saltHash, $phone, $email, $address);
+    $resposta = Usuario::CadastrarUsuario($username, $name, $passwordHash, $saltHash, $phone, $email, $address);
     header("Location: ../usuario_cadastro_resposta.html?resposta=".$resposta);
 ?>
