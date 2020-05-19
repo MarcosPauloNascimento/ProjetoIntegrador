@@ -10,7 +10,7 @@
     if($resposta != "Sucesso"){
         header("Location: ../usuario_cadastro_resposta.html?resposta=".$resposta);
     }else{
-        header("Location: ../feed_principal.html");
+        header("Location: ../home.php");
     }
 
 

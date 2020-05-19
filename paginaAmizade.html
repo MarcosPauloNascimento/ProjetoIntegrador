@@ -1,0 +1,72 @@
+<div class="col-md-8">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Encontrar amigos</h3>
+        </div>
+        <div class="panel-body">
+            <form method="POST" target="_self">
+                <div class="form-group">
+                    <input type="text" name="pesquisar" id="pesquisar" class="form-control" placeholder="Digite aqui e encontre seus amigos!!!" >
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="members">
+        <h1 class="page-header">Sugestão de amizades</h1>
+        <div class="row member-row resultado">
+
+        </div>
+
+
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="panel panel-default friends">
+        <div class="panel-heading">
+            <h3 class="panel-title">My Friends</h3>
+        </div>
+        <div class="panel-body">
+            <ul>
+                <li><a href="profile.html" class="thumbnail"><img src="img/user.png" alt=""></a></li>
+                <li><a href="profile.html" class="thumbnail"><img src="img/user.png" alt=""></a></li>
+                <li><a href="profile.html" class="thumbnail"><img src="img/user.png" alt=""></a></li>
+                <li><a href="profile.html" class="thumbnail"><img src="img/user.png" alt=""></a></li>
+                <li><a href="profile.html" class="thumbnail"><img src="img/user.png" alt=""></a></li>
+                <li><a href="profile.html" class="thumbnail"><img src="img/user.png" alt=""></a></li>
+                <li><a href="profile.html" class="thumbnail"><img src="img/user.png" alt=""></a></li>
+                <li><a href="profile.html" class="thumbnail"><img src="img/user.png" alt=""></a></li>
+                <li><a href="profile.html" class="thumbnail"><img src="img/user.png" alt=""></a></li>
+            </ul>
+            <div class="clearfix"></div>
+            <a class="btn btn-primary" href="#">View All Friends</a>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    $(function () {
+        $("#pesquisar").keyup(function () {
+            let pesquisa = $(this).val();
+
+            if (pesquisa != '') {
+                let dados = {
+                    palavra: pesquisa
+                };              
+
+                $.post('controller/amizade_controller.php?method=EncontrarAmigo', dados, function (result) {
+                    $(".resultado").html(result);
+
+                });
+            } else {
+                $(".resultado").html('');
+                //chamar aqui a busca de sugestao de amizades
+            }
+
+        });
+
+    });
+</script>

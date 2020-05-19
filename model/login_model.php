@@ -16,7 +16,7 @@ session_start();
             $userName = mysqli_real_escape_string($link, $usuario);
             $password = mysqli_real_escape_string($link, $senha);
 
-            $sql = "select username, passwordhash, salthash from usuario where username = '{$userName}'";
+            $sql = "select id, username, passwordhash, salthash from usuario where username = '{$userName}'";
             $result = mysqli_query($link, $sql);
 
             
@@ -29,7 +29,8 @@ session_start();
 
             if($row['passwordhash'] == md5($senha . $row['salthash'])){
 
-                $_SESSION['usuario'] = $userName;
+                $_SESSION['usuarioId'] = $row['id'];
+                $_SESSION['usuario'] = $row['username'];
                 return "Sucesso";
                 exit();
 
