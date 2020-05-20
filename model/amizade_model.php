@@ -8,10 +8,22 @@ class Amizade {
         $objDb = new db();
         $link = $objDb->mysqlConnect();
         $msg = '';
+        $usuarioId = $_SESSION['usuarioId'];
 
         $nome = mysqli_real_escape_string($link, $pequisa);
-
-        $sql = "select id, name from usuario where name like '%{$nome}%'";
+        
+        $sql = "SELECT id, name FROM usuario "
+                . "WHERE name LIKE '%{$nome}%' "
+                . "AND id <> {$usuarioId} "
+                . "AND id NOT IN "
+                        . "(SELECT idUsuario FROM `amizade` "
+                        . "WHERE (idUsuario = {$usuarioId} or idAmigo = {$usuarioId})"
+                        . "AND situacao <> 'R') "
+                . "AND id NOT IN "
+                        . "(SELECT idAmigo FROM `amizade` "
+                        . "WHERE (idUsuario = {$usuarioId} or idAmigo = {$usuarioId})"
+                        . "AND situacao <> 'R')";
+                        
         $result = mysqli_query($link, $sql);
 
         if (mysqli_num_rows($result) == 0) {
@@ -56,7 +68,84 @@ class Amizade {
         
         echo $msg;
     }
+    
+    public static function PendeteParaAprovacao(){
+        $msg = '';
+        $usuarioId = $_SESSION['usuarioId'];
+
+        $objDb = new db();
+        $link = $objDb->mysqlConnect();
+
+        $sql = "SELECT u.id, u.name FROM amizade a "
+                . "INNER JOIN usuario u on u.id = a.idUsuario "
+                . "WHERE a.idAmigo = {$usuarioId}"
+                . " AND a.situacao = 'P'";
+                        
+        $result = mysqli_query($link, $sql);
+        
+        if (mysqli_num_rows($result) == 0) {
+            $msg = 'Nenhuma solicitação de amizade pendente!';
+        } else {
+            while ($row = mysqli_fetch_assoc($result)) {
+
+                $msg .= "<div class='row friends-body'>";
+                $msg .= "   <div class='col-md-4 text-center'>";
+                $msg .= "       <img src='img/user.png' class='img-circle' alt=''>";
+                $msg .= "   </div>";
+                $msg .= "   <div class='col-md-8'>";
+                $msg .= "       <label>" . $row['name'] . "</label>";
+                $msg .= "       <div class='row'>";
+                $msg .= "           <div class='col-md-6'>";
+                $msg .= "               <button class='btn btn-primary btn-block' onclick='aceitarAmizade(" . $row['id'] . ")'>Confirmar</button>";
+                $msg .= "           </div>";
+                $msg .= "           <div class='col-md-6'>";
+                $msg .= "               <button class='btn btn-warning btn-block' onclick='rejeitarAmizade(" . $row['id'] . ")'>Remover</button>";
+                $msg .= "           </div>";
+                $msg .= "       </div>";
+                $msg .= "   </div>";
+                $msg .= "</div>";
+                
+            }
+        }
+        echo $msg;
+    }
+    
+    public static function AceitarAmizade($amigoId){
+        $msg = '';
+        $usuarioId = $_SESSION['usuarioId'];
+
+        $objDb = new db();
+        $link = $objDb->mysqlConnect();
+        
+        $sql = "UPDATE amizade SET dataConfirmacao = NOW(),"
+                . "situacao = 'A'"
+                . " WHERE idAmigo = {$usuarioId}"
+                . " AND idUsuario = {$amigoId}";
+                        
+        if (mysqli_query($link, $sql)) {
+            $msg .= 'sucesso!';
+        } else {
+            $msg .= 'falha!';
+        }
+        echo $msg;
+    }
+    
+    public static function RejeitarAmizade($amigoId){
+        $msg = '';
+        $usuarioId = $_SESSION['usuarioId'];
+
+        $objDb = new db();
+        $link = $objDb->mysqlConnect();
+        
+        $sql = "DELETE FROM amizade WHERE idAmigo = {$usuarioId}"
+                . " AND idUsuario = {$amigoId}";
+        
+        if (mysqli_query($link, $sql)) {
+            $msg .= 'sucesso!';
+        } else {
+            $msg .= 'falha!';
+        }
+        echo $msg;
+    }
 
 }
-
-?>

@@ -55,6 +55,7 @@
         <section>
             <div class="container">
                 <h4><?php echo 'Bem Vindo, ' . $usuario; ?></h4>
+                <h4 class="hidden usuarioId"><?php echo $usuarioId; ?></h4>
                 <div class="row" id="conteudo">
 
                 </div>
@@ -78,7 +79,7 @@
         <script>
                             $(document).ready(function () {
 
-                                $('#conteudo').load("linhaDoTempo.html");
+                                $('#conteudo').load("paginaAmizade.html");
 
                             });
 
@@ -92,9 +93,9 @@
                             }
                             ;
 
-                            function solicitarAmizade(linha) {
+                            function solicitarAmizade(id) {
                                 let dados = {
-                                    palavra: linha
+                                    idAmigo: id
                                 };
                                 $.post('controller/amizade_controller.php?method=SolicitarAmizade', dados, function (result) {
                                     $(".resultado").html(result);

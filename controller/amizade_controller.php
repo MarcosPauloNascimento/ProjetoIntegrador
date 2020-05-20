@@ -19,10 +19,22 @@ class amizade_controller {
     }
 
     public function SolicitarAmizade() {
-        $amigoId = $_POST['palavra'];
+        $amigoId = $_POST['idAmigo'];
         Amizade::SolicitarAmizade($amigoId);
+    }
+    
+    public function PendeteParaAprovacao() {
+        Amizade::PendeteParaAprovacao();
+    }
+    
+    public function AceitarAmizade() {
+        $amigoId = $_POST['idAmigo'];
+        Amizade::AceitarAmizade($amigoId);
+    }
+    
+    public function RejeitarAmizade() {
+        $amigoId = $_POST['idAmigo'];
+        Amizade::RejeitarAmizade($amigoId);
     }
 
 }
-
-?>
