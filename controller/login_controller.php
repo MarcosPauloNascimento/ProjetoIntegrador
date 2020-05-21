@@ -12,6 +12,3 @@
     }else{
         header("Location: ../home.php");
     }
-
-
-?>

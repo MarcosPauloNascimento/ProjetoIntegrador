@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Unasp Face Pet</title>
+        <title>My Pet's Space</title>
 
         <script src="js/jquery-3.4.1.js"></script>
         <script src="js/popper.min.js"></script>
@@ -44,8 +44,8 @@
                     <ul class="nav nav-tabs nav-fill">
                         <li id="inicio"><a href="#" onclick="loadLinhadoTempo()">Inicio</a></li>
                         <li><a href="#" onclick="loadPaginaAmizade()">Amigos</a></li>
-                        <li class="dropdown pull-right">
-                            <a class="dropdown-item" href="index.html">Sair</a>
+                        <li class="pull-right">
+                            <a href="index.html" onclick="sair()" >Sair</a>
                         </li>
                     </ul>
                 </div>
@@ -54,7 +54,7 @@
 
         <section>
             <div class="container">
-                <h4><?php echo 'Bem Vindo, ' . $usuario; ?></h4>
+                <label><?php echo 'Bem Vindo, ' . $usuario; ?></label>
                 <h4 class="hidden usuarioId"><?php echo $usuarioId; ?></h4>
                 <div class="row" id="conteudo">
 
@@ -66,7 +66,7 @@
 
         <footer>
             <div class="container">
-                <p>Unasp Face</p>
+                <p>My Pet's Space</p>
             </div>
         </footer>
 
@@ -77,11 +77,39 @@
         <script src="js/bootstrap.js"></script>
 
         <script>
-                            $(document).ready(function () {
+                            function MeusAmigos() {
+                                $.get('controller/amizade_controller.php?method=MeusAmigos', function (result) {
+                                    $(".meusAmigos").html(result);
+                                });
+                            }
+                            ;
 
-                                $('#conteudo').load("paginaAmizade.html");
+                            function PendeteParaAprovacao() {
+                                $.get('controller/amizade_controller.php?method=PendeteParaAprovacao', function (result) {
+                                    $(".pendentes").html(result);
+                                });
+                            }
+                            ;
 
-                            });
+                            function AceitarAmizade(id) {
+                                let dados = {
+                                    idAmigo: id
+                                };
+                                $.post('controller/amizade_controller.php?method=AceitarAmizade', dados, function () {
+                                    PendeteParaAprovacao();
+                                    MeusAmigos();
+                                });
+                            }
+
+                            function ExcluirAmizade(id) {
+                                let dados = {
+                                    idAmigo: id
+                                };
+                                $.post('controller/amizade_controller.php?method=ExcluirAmizade', dados, function () {
+                                    PendeteParaAprovacao();
+                                    MeusAmigos();
+                                });
+                            }
 
                             function loadLinhadoTempo() {
                                 $('#conteudo').load("linhaDoTempo.html");
@@ -90,19 +118,43 @@
 
                             function loadPaginaAmizade() {
                                 $('#conteudo').load("paginaAmizade.html");
+                                SugestaoAmizade();
                             }
                             ;
 
-                            function solicitarAmizade(id) {
+                            function SugestaoAmizade() {
+                                $.get('controller/amizade_controller.php?method=SugestaoAmizade', function (result) {
+                                    $(".resultado").html(result);
+                                });
+                            }
+                            ;
+
+                            function SolicitarAmizade(id) {
                                 let dados = {
                                     idAmigo: id
                                 };
                                 $.post('controller/amizade_controller.php?method=SolicitarAmizade', dados, function (result) {
                                     $(".resultado").html(result);
+                                    $("#pesquisar").val("");
+                                    document.getElementById("pesquisar").focus();
 
                                 });
                             }
                             ;
+
+                            $(document).ready(function () {
+
+                                $('#conteudo').load("linhaDoTempo.html");
+
+                            });
+
+                            function sair() {
+                                session_destroy();
+                                unset($_SESSION['usuario']);
+                                $_SESSION['usuario'] = null;
+                                header('location: .');
+                                session_commit();
+                            }
 
 
         </script>

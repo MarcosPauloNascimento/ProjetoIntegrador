@@ -42,9 +42,9 @@
     <div class="painel">
         <div class="friends">
             <div class="panel-heading">
-                <h3 class="panel-title">Solicitações de Amizade</h3>
+                <h3 class="panel-title">Meus Amigos</h3>
             </div>
-            <div class="pendentes">
+            <div class="meusAmigos">
                 <!--o as solicitações de amizade aparecerão aqui-->
             </div>
             <div class="panel-footer">           
@@ -60,53 +60,29 @@
 
 <script>
     $(document).ready(function () {
-
         PendeteParaAprovacao();
+        MeusAmigos();
     });
     
-    function PendeteParaAprovacao(){
-        $.get('controller/amizade_controller.php?method=PendeteParaAprovacao', function (result) {
-            $(".pendentes").html(result);
-        });
-    };
-
-    function aceitarAmizade(id) {
-        let dados = {
-            idAmigo: id
-        };
-        $.post('controller/amizade_controller.php?method=AceitarAmizade', dados, function () {
-            PendeteParaAprovacao();
-        });
-    }
-    
-    function rejeitarAmizade(id) {
-        let dados = {
-            idAmigo: id
-        };
-        $.post('controller/amizade_controller.php?method=RejeitarAmizade', dados, function () {
-            PendeteParaAprovacao();
-        });
-    }
-
     $(function () {
         $("#pesquisar").keyup(function () {
             let pesquisa = $(this).val();
 
-            if (pesquisa != '') {
+            if (pesquisa !== '') {
                 let dados = {
                     palavra: pesquisa
                 };
-
+                
                 $.post('controller/amizade_controller.php?method=EncontrarAmigo', dados, function (result) {
                     $(".resultado").html(result);
-
                 });
-            } else {
-                $(".resultado").html('');
-                //chamar aqui a busca de sugestao de amizades
+                
+            } else{
+                SugestaoAmizade();
             }
 
         });
+                
 
     });
 </script>

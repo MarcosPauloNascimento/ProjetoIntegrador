@@ -13,6 +13,10 @@ call_user_func(["{$controller}", $method]);
 
 class amizade_controller {
     
+    public static function SugestaoAmizade() {
+        Amizade::SugestaoAmizade();
+    }
+    
     public static function EncontrarAmigo() {
         $pequisa = $_POST['palavra'];
         Amizade::EncontrarAmigo($pequisa);
@@ -21,6 +25,10 @@ class amizade_controller {
     public function SolicitarAmizade() {
         $amigoId = $_POST['idAmigo'];
         Amizade::SolicitarAmizade($amigoId);
+    }
+    
+    public function MeusAmigos() {
+        Amizade::MeusAmigos();
     }
     
     public function PendeteParaAprovacao() {
@@ -32,9 +40,9 @@ class amizade_controller {
         Amizade::AceitarAmizade($amigoId);
     }
     
-    public function RejeitarAmizade() {
+    public function ExcluirAmizade() {
         $amigoId = $_POST['idAmigo'];
-        Amizade::RejeitarAmizade($amigoId);
+        Amizade::ExcluirAmizade($amigoId);
     }
 
 }
