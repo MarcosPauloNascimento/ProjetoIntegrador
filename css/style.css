@@ -2,15 +2,28 @@ header{
     background-image: linear-gradient(#04519b, #044687 60%, #033769);
     color:#fff;
     min-height: 100px;
-    padding-top: 25px;
+    padding: 15px;
 }
 
 header form{
     float:right;
 }
 
-header .logo{
+.logo{
     float:left;
+    width: 200px;
+ }
+
+.nav-item{
+    font-weight: bold;
+    font-size: 15px;
+    font-family: arial, sans-serif;
+    color: white;
+}
+
+.navbar{
+    background-image: linear-gradient(#04519b, #044687 60%, #033769);
+    padding: 15px;
 }
 
 .panel-heading{
@@ -178,7 +191,7 @@ img{
     margin-bottom: 5px;
 }
 
-@media(min-width: 991px){
+@media(min-width: 200px){
     .members p{
         padding-top: 40px;
     }

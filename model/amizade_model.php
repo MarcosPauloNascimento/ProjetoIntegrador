@@ -237,26 +237,27 @@ class Amizade {
                 ." INNER JOIN amizade a on a.idUsuario = u.id or a.idAmigo = u.id"
                 ." WHERE (a.idUsuario NOT IN"
                     ." (SELECT idAmigo FROM `amizade`"
-                    ." WHERE situacao = 'A'"
+                    ." WHERE situacao IS NOT NULL"
                     ." AND idUsuario = {$usuarioId}"
                     ." UNION"
                     ." SELECT idUsuario FROM `amizade`"
-                    ." WHERE situacao = 'A' AND idAmigo = {$usuarioId})"
+                    ." WHERE situacao IS NOT NULL AND idAmigo = {$usuarioId})"
                 ." OR"
                 ." a.idAmigo NOT IN"
                     ." (SELECT idAmigo FROM `amizade`"
-                    ." WHERE situacao = 'A' AND idUsuario = {$usuarioId}"
+                    ." WHERE situacao IS NOT NULL AND idUsuario = {$usuarioId}"
                     ." UNION"
                     ." SELECT idUsuario FROM `amizade`"
-                    ." WHERE situacao = 'A' AND idAmigo = {$usuarioId}))"
+                    ." WHERE situacao IS NOT NULL AND idAmigo = {$usuarioId}))"
                 ." AND a.idUsuario <> {$usuarioId}"
                 ." AND a.idAmigo <> {$usuarioId}"
                 ." AND u.id NOT IN"
                     ." (SELECT idAmigo FROM `amizade`"
-                    ." WHERE situacao = 'A' AND idUsuario = {$usuarioId}"
+                    ." WHERE situacao IS NOT NULL AND idUsuario = {$usuarioId}"
                     ." UNION"
                     ." SELECT idUsuario FROM `amizade`"
-                    ." WHERE situacao = 'A' AND idAmigo = {$usuarioId})";
+                    ." WHERE situacao IS NOT NULL AND idAmigo = {$usuarioId})"
+                . "LIMIT 4";
     }
 
 }
