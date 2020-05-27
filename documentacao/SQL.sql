@@ -36,7 +36,7 @@ CREATE TABLE amizade
 	idAmigo INT NOT NULL,
 	dataSolicitacao DATE NOT NULL,
 	dataConfirmacao DATE,
-	situacao CHAR(2) NOT NULL, -- (P - Pendente, A - Aprovado, R - Rejeitado)
+	situacao CHAR(2) NOT NULL, -- (P - Pendente, A - Aprovado)
 	PRIMARY KEY (idUsuario, idAmigo),
 	FOREIGN KEY (idUsuario) REFERENCES usuario(id) ON DELETE CASCADE,
 	FOREIGN KEY (idAmigo) REFERENCES usuario(id) ON DELETE CASCADE

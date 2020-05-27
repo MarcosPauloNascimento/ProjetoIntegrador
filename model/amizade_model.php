@@ -222,7 +222,9 @@ class Amizade {
         $link = $objDb->mysqlConnect();
 
         $sql = "DELETE FROM amizade WHERE idAmigo = {$usuarioId}"
-                . " AND idUsuario = {$amigoId}";
+                . " AND idUsuario = {$amigoId}"
+                . " OR idAmigo = {$amigoId}"
+                . " AND idUsuario = {$usuarioId}";
 
         if (mysqli_query($link, $sql)) {
             $msg .= 'sucesso!';

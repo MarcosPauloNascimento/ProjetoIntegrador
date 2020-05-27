@@ -60,7 +60,7 @@
 
         <section>
             <div class="container">
-                <label><?php echo 'Bem Vindo, ' . $usuario; ?></label>
+                <label><?php echo 'Bem Vindo, ' . $usuario. ' - '.$usuarioId; ?></label>
                 <h4 class="hidden usuarioId"><?php echo $usuarioId; ?></h4>
                 <div class="row" id="conteudo">
 
@@ -111,9 +111,10 @@
                                         let dados = {
                                             idAmigo: id
                                         };
-                                        $.post('controller/amizade_controller.php?method=ExcluirAmizade', dados, function () {
+                                        $.post('controller/amizade_controller.php?method=ExcluirAmizade', dados, function (result) {
                                             PendeteParaAprovacao();
                                             MeusAmigos();
+                                            console.log(result);
                                         });
                                     }
 
